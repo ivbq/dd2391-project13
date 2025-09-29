@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fingerprinting</title>
+    <script src="fingerprinting.js"></script>
+</head>
+<body>
+    <div>
+        Fingerprint: <div id="fingerprint">Generating...</div>
+    </div>
+    <script>generateFingerprint().then(fingerprint => {return hashFingerprint(fingerprint)}).then(hash => {document.getElementById("fingerprint").innerHTML = hash})</script>
+</body>
+</html>
