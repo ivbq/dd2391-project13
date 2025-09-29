@@ -1,6 +1,19 @@
 async function generateFingerprint() {
+    // Get location
+    // var location;
+    // function success(pos) {
+    //     location = pos.coords;
+    // }
+    // function error() {
+    //     location = "Location not shared."
+    // }
+    // navigator.geolocation.getCurrentPosition(success, error)
+
+    // Generate fingerprint
     const fingerprint = {
-        agent: navigator.userAgent
+        agent: navigator.userAgent,
+        // geolocation: location,
+        languages: navigator.languages
     }
     return fingerprint;
 }

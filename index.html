@@ -6,10 +6,27 @@
     <title>Fingerprinting</title>
     <script src="fingerprinting.js"></script>
 </head>
-<body>
-    <div>
+<body style="height: 100%; margin: 10vh; display: flex; flex-direction: column; justify-content: center;">
+    <div style="padding: 5vh">
         Fingerprint: <div id="fingerprint">Generating...</div>
     </div>
-    <script>generateFingerprint().then(fingerprint => {return hashFingerprint(fingerprint)}).then(hash => {document.getElementById("fingerprint").innerHTML = hash})</script>
+    <div style="padding: 5vh">
+        Tests:
+        <ul>
+            <li>Agent: <p id="agent"></p></li>
+            <!-- <li>Geolocation: <p id="geolocation"></p></li> -->
+            <li>Languages: <p id="languages"></p></li>
+        </ul>
+    </div>
+    <script>
+        generateFingerprint()
+            .then(fingerprint => {
+                document.getElementById("agent").innerHTML = fingerprint.agent;
+                // document.getElementById("geolocation").innerHTML = fingerprint.geolocation;
+                document.getElementById("languages").innerHTML = fingerprint.languages;
+                return hashFingerprint(fingerprint)
+            })
+            .then(hash => {document.getElementById("fingerprint").innerHTML = hash})
+    </script>
 </body>
 </html>
