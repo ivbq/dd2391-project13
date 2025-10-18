@@ -14,7 +14,8 @@ async function generateFingerprint() {
         agent: navigator.userAgent,
         // geolocation: location,
         permissions: await getPermissions(),
-        languages: navigator.languages
+        languages: navigator.languages,
+        cookies: await getCookieFingerprint(),
     }
     return fingerprint;
 }
@@ -27,6 +28,20 @@ async function hashFingerprint(fingerprint) {
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     return hashHex;
 }
+
+//Cookies funktion
+async function getCookieFingerprint()
+{
+    const cookies=document.cookie;
+    return{
+        hascookies: cookies.length>0,
+        cookie: cookies ? cookies.split('; ').filter(c => c.trim()).length :0,
+        cookieenable: navigator.cookieEnabled
+    };
+}
+
+
+
 
 async function getPermissions() {
     const permissions = [

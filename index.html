@@ -16,6 +16,7 @@
             <li>Agent: <p id="agent"></p></li>
             <!-- <li>Geolocation: <p id="geolocation"></p></li> -->
             <li>Languages: <p id="languages"></p></li>
+            <li>Cookies: <p id="cookies"></p></li>
         </ul>
     </div>
     <script>
@@ -24,6 +25,7 @@
                 document.getElementById("agent").innerHTML = fingerprint.agent;
                 // document.getElementById("geolocation").innerHTML = fingerprint.geolocation;
                 document.getElementById("languages").innerHTML = fingerprint.languages;
+                document.getElementById("cookies").innerHTML = `${fingerprint.cookies.cookie} cookies`;
                 return hashFingerprint(fingerprint)
             })
             .then(hash => {document.getElementById("fingerprint").innerHTML = hash})
