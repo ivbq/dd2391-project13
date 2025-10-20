@@ -29,8 +29,16 @@ Storing, or transmitting, browser fingerprints must also be taken into considera
 
 ## Solution
 
-In our solution, we fetch all of the attributes that we are interested in. These attributes are the basis for the browser fingerprint. 
+In our solution, we fetch all of the attributes that we are interested in. These attributes are the basis for the browser fingerprint. The fetched attributes are then parsed into a SHA-256 hash function which outputs a 1024 bit hash. This hash size means the browser fingerprint application can identify $2^{1024}$ different *identities*. However hash collisions are possible, meaning that a set with a lower size than $2^{1024}$ still can cause duplicate fingerprints.
 
+The attributes the browser fingerprint application looks at are:
+- User agent
+- Languages
+- Time zone
+- Screen attributes
+- Permissions
+- Do not track flag
+- Cookies permission
 
 ## Testing
 
