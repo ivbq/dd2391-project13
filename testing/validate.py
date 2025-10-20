@@ -1,10 +1,12 @@
 from collections import defaultdict
 import json
+import os
 
 def main():
     configs_per_hash = defaultdict(list)
 
-    with open("output.json", "r") as output:
+    abs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "/output.json")
+    with open(abs_path, "r") as output:
         for line in output:
             fingerprint = json.loads(line)
             h = fingerprint.get("hash")
