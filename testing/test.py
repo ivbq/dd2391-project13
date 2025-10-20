@@ -3,46 +3,6 @@ import json
 import itertools
 from playwright.sync_api import sync_playwright
 
-def main():
-    abs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../index.html")
-    with open("output.json", "w") as f:
-        with sync_playwright() as pw:
-            browser = pw.chromium.launch()
-            for i, (ua, lc, tz, perms) in enumerate(itertools.product(user_agents, locales, timezones, permissions)): 
-                print("Progress: " + str(round(i/len(user_agents), 3)))
-                res = None
-                try:
-                    page = browser.new_page(user_agent=ua, locale=lc, timezone_id=tz, permissions=[perms])
-                    # print("Set configuration...")
-
-                    page.goto("file://" + abs_path)
-                    # print("Going to page...")
-
-                    page.wait_for_selector("#fingerprint")
-                    # print("Select fingerprint element on page...")
-
-                    res = page.locator("#fingerprint").text_content()
-                    # print("Get fingerprint content...")
-
-                    cookie_info=page.locator("#cookies").text_content()
-                    # print("Get cookies...")
-                    
-                    # print(cookie_info)
-                except Exception as e:
-                    print(f"Error: {e}")
-                finally: 
-                    f.write(json.dumps({"user_agent": ua, "locale" : lc, "timezone": tz,"permissions":perms, "hash": res})+ '\n')
-            browser.close()
-
-
-    
-
-
-        
-
-
-
-#-----------------------------------------
 # Possible values for browser settings
 user_agents = [
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
@@ -64,28 +24,28 @@ user_agents = [
 ]
 
 locales = [
-"ar-SA",
-"bn-BD",
-"bn-IN",
-"cs-CZ",
-"da-DK",
-"de-DE",
-"el-GR",
-"en-AU",
-"en-CA",
-"en-GB",
-"es-ES",
-"es-MX",
-"es-US",
-"fi-FI",
-"fr-BE",
-"fr-CA",
-"fr-CH",
-"fr-FR",
-"nl-BE",
-"nl-NL",
-"no-NO",
-"sv-SE"
+    "ar-SA",
+    "bn-BD",
+    "bn-IN",
+    "cs-CZ",
+    "da-DK",
+    "de-DE",
+    "el-GR",
+    "en-AU",
+    "en-CA",
+    "en-GB",
+    "es-ES",
+    "es-MX",
+    "es-US",
+    "fi-FI",
+    "fr-BE",
+    "fr-CA",
+    "fr-CH",
+    "fr-FR",
+    "nl-BE",
+    "nl-NL",
+    "no-NO",
+    "sv-SE"
 ]
 
 timezones = [
@@ -110,19 +70,46 @@ timezones = [
 ]
 
 permissions = [
-"background-sync",
-"camera",
-"clipboard-read",
-"clipboard-write",
-"local-fonts",
-"microphone",
-"midi",
-"notifications",
-"payment-handler",
-"screen-wake-lock",
-"top-level-storage-access",
-"window-management"
+    "background-sync",
+    "camera",
+    "clipboard-read",
+    "clipboard-write",
+    "local-fonts",
+    "microphone",
+    "midi",
+    "notifications",
+    "payment-handler",
 ]
+
+def main():
+    abs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../index.html")
+    with open("output.json", "w") as f:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            for i, (ua, lc, tz, perms) in enumerate(itertools.product(user_agents, locales, timezones, permissions)): 
+                print("Progress: " + str(round(i/len(user_agents), 3)))
+                res = None
+                try:
+                    page = browser.new_page(user_agent=ua, locale=lc, timezone_id=tz, permissions=[perms])
+                    # print("Set configuration...")
+
+                    page.goto("file://" + abs_path)
+                    # print("Going to page...")
+
+                    page.wait_for_selector("#fingerprint")
+                    # print("Select fingerprint element on page...")
+
+                    res = page.locator("#fingerprint").text_content()
+                    # print("Get fingerprint content...")
+
+                    cookies = page.locator("#cookies").text_content()
+                    # print("Get cookies...")
+                except Exception as e:
+                    print(f"Error: {e}")
+                finally: 
+                    page.close()
+                    f.write(json.dumps({"user_agent": ua, "locale" : lc, "timezone": tz,"permissions": perms, "cookies": cookies, "hash": res})+ '\n')
+            browser.close()
 
 
 if __name__ == "__main__":
