@@ -13,7 +13,6 @@ async function generateFingerprint() {
     const fingerprint = {
         // Properties-based fingerprinting
         agent: navigator.userAgent,
-        platform: navigator.platform,
         languages: navigator.languages,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         screen: {
@@ -46,16 +45,24 @@ async function getCookieFingerprint()
 {
     //Kontroll om cookie är avstängd
     const enabled=navigator.cookieEnabled;//browser-inställning
-    let test=false;
+    
+    let test=false;//
+    //Försök sätta en test-cookie
     try
     {
-        document.cookie="Test_cookie=1",
-        test=document.cookie.indexOf("Test_cookie") ! == -1;
+        document.cookie="Test_cookie=1";
+        test = document.cookie.indexOf("Test_cookie=") !== -1;
         
+        document.cookie="Test_cookie; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";   
     }
-
-    //kontroll om vi kan läsa cookie:
-
+    catch(e)//fånga fel
+    {
+        test=false;
+    }
+    return{
+        cookieEnabled: enabled,
+        cookieWritable: test
+    };
 }
 
 

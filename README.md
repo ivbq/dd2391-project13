@@ -41,8 +41,9 @@ It is important to notice, that the generated user set is not representive of th
 ### Fingerprint of a single browser
 To obtain a browser fingerprint you open `index.html` in your browser. The tests should be supported on all modern platforms.
 
+### Testing the solution
 To run the test framework you first have to install Python3, then Playwright locally using the following commands:
 `pip install playwright`
-`py -m playwright install`
+`<python intepreter> -m playwright install`
 
-Then 
+Then run the script `testing/test.py` with python.

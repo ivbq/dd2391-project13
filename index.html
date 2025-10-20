@@ -25,10 +25,12 @@
                 document.getElementById("agent").innerHTML = fingerprint.agent;
                 // document.getElementById("geolocation").innerHTML = fingerprint.geolocation;
                 document.getElementById("languages").innerHTML = fingerprint.languages;
-                document.getElementById("cookies").innerHTML = `${fingerprint.cookies.cookie} cookies`;
+                document.getElementById("cookies").innerHTML =
+                    `cookieEnabled: ${fingerprint.cookies.cookieEnabled}, cookieWritable: ${fingerprint.cookies.cookieWritable}`;
                 return hashFingerprint(fingerprint)
             })
             .then(hash => {document.getElementById("fingerprint").innerHTML = hash})
     </script>
 </body>
 </html>
+
