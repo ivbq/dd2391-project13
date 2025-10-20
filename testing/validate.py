@@ -5,7 +5,7 @@ import os
 def main():
     configs_per_hash = defaultdict(list)
 
-    abs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output.json")
+    abs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "/output.json")
     with open(abs_path, "r") as output:
         for line in output:
             fingerprint = json.loads(line)
