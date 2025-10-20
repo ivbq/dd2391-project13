@@ -82,8 +82,9 @@ permissions = [
 ]
 
 def main():
-    abs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../index.html")
-    with open("output.json", "w") as f:
+    abs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../")
+    html_path = abs_path + "/index.html"
+    with open(abs_path + "testing/output.json", "w") as f:
         with sync_playwright() as pw:
             browser = pw.chromium.launch()
             for i, (ua, lc, tz, perms) in enumerate(itertools.product(user_agents, locales, timezones, permissions)): 
@@ -93,7 +94,7 @@ def main():
                     page = browser.new_page(user_agent=ua, locale=lc, timezone_id=tz, permissions=[perms])
                     # print("Set configuration...")
 
-                    page.goto("file://" + abs_path)
+                    page.goto("file://" + html_path)
                     # print("Going to page...")
 
                     page.wait_for_selector("#fingerprint")
