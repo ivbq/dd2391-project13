@@ -29,21 +29,27 @@ Storing, or transmitting, browser fingerprints must also be taken into considera
 
 ## Solution
 
+In our solution, we fetch all of the attributes that we are interested in. These attributes are the basis for the browser fingerprint. 
+
+
 ## Testing
 
 To test if our built solution is able to fulfill the problem, the testing script generates a set of users, each user with unique browser attributes. The program than fetches the browser fingerprint for each users and stores them. The last phase of testing consists of finding duplicates of any fingerprint. If the program can not find any duplicates, we conclude that the problem is solved for the user set. Otherwise, we conclude that the implemnted browser fingerprint application does not suffice to identify the generated user set.
 
 It is important to notice, that the generated user set is not representive of the average set of users that connect to an application. Nor is the generated set exhaustive, meaning that there could be a composition of browser attributes that generates a fingerprint that has already been generated.
 
-
 ## Usage
 
 ### Fingerprint of a single browser
+
 To obtain a browser fingerprint you open `index.html` in your browser. The tests should be supported on all modern platforms.
 
 ### Testing the solution
-To run the test framework you first have to install Python3, then Playwright locally using the following commands:
-`pip install playwright`
-`<python intepreter> -m playwright install`
 
-Then run the script `testing/test.py` with python.
+To run the test framework you first have to install prerequisites in the form of Python 3.X. You then have two options, either:
+
+1. Enter the Python virtual environment included in this repository with: `source venv/bin/activate`, or
+
+2. Install Playwright locally using the following command: `pip3 install playwright && python3 -m playwright install`
+
+To run the script you execute `python3 testing/test.py` and observe the results in output.json.
