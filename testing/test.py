@@ -58,6 +58,27 @@ user_agents = [
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0"
 ]
 
+timezones = [
+    "America/New_York",
+    "America/Los_Angeles",
+    "America/Chicago",
+    "America/Sao_Paulo",
+    "America/Argentina/Buenos_Aires",
+    "Europe/London",
+    "Europe/Paris",
+    "Europe/Berlin",
+    "Europe/Stockholm",
+    "Europe/Moscow",
+    "Europe/Istanbul",
+    "Asia/Kolkata",
+    "Asia/Shanghai",
+    "Asia/Tokyo",
+    "Asia/Seoul",
+    "Australia/Sydney",
+    "Pacific/Auckland",
+    "Pacific/Honolulu"
+]
+
 locales = [
 "ar-SA",
 "bn-BD",
@@ -82,6 +103,7 @@ locales = [
 "no-NO",
 "sv-SE"
 ]
+
 permissions = [
 "background-sync",
 "camera",
