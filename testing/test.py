@@ -74,6 +74,7 @@ permissions = [
     "camera",
     "clipboard-read",
     "clipboard-write",
+    "geolocation",
     "local-fonts",
     "microphone",
     "midi",
@@ -87,27 +88,19 @@ def main():
     with open(abs_path + "testing/output.json", "w") as f:
         with sync_playwright() as pw:
             browser = pw.chromium.launch()
-            for i, (ua, lc, tz, perms) in enumerate(itertools.product(user_agents, locales, timezones, permissions)): 
+            for i, (ua, lc, tz, perms) in enumerate(itertools.product(user_agents, locales, timezones, permissions)):
                 print("Progress: " + str(round(i/len(user_agents), 3)))
                 res = None
+                cookies = None
                 try:
                     page = browser.new_page(user_agent=ua, locale=lc, timezone_id=tz, permissions=[perms])
-                    # print("Set configuration...")
-
                     page.goto("file://" + html_path)
-                    # print("Going to page...")
-
                     page.wait_for_selector("#fingerprint")
-                    # print("Select fingerprint element on page...")
-
                     res = page.locator("#fingerprint").text_content()
-                    # print("Get fingerprint content...")
-
                     cookies = page.locator("#cookies").text_content()
-                    # print("Get cookies...")
                 except Exception as e:
                     print(f"Error: {e}")
-                finally: 
+                finally:
                     page.close()
                     f.write(json.dumps({"user_agent": ua, "locale" : lc, "timezone": tz,"permissions": perms, "cookies": cookies, "hash": res})+ '\n')
             browser.close()
