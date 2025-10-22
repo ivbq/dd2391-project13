@@ -2,6 +2,7 @@ from collections import defaultdict
 import json
 import os
 
+
 def main():
     configs_per_hash = defaultdict(list)
 
@@ -14,15 +15,15 @@ def main():
             if h is not None:
                 configs_per_hash[h].append(fingerprint)
 
-    collisions = {}
-    for h, configs in configs_per_hash.items():
-        if len(configs) > 1:
-            collisions[h] = configs
+    collisions = {
+        h: configs for h, configs in configs_per_hash.items() if len(configs) > 1
+    }
 
     if len(collisions.items()) > 0:
         print(f"Collisions found: {collisions}")
     else:
         print("No collisions found!")
+
 
 if __name__ == "__main__":
     main()
